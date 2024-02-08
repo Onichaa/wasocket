@@ -13,7 +13,7 @@ func init() {
     Cmd:     []string{"truth"},
     Tags:    "random",
     Prefix:  false,
-    IsOwner: true,
+    
     Exec: func(client *x.Nc, m *x.IMsg) {
 
       data1 := []string{
