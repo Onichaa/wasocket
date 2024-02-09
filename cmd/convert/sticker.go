@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	//"fmt"
+	"fmt"
 	x "mywabot/system"
-	//"os"
+	"os"
 	//"os/exec"
 )
 
@@ -147,10 +147,10 @@ func init() {
 
 			// from image
 			if m.IsImage {
-				//conjp := "./tmp/" + m.ID + ".jpg"
-				//conwp := "./tmp/" + m.ID + ".webp"
+				conjp := "./tmp/" + m.ID + ".jpg"
+				conwp := "./tmp/" + m.ID + ".webp"
 				byte, _ := sock.WA.Download(m.Media)
-        
+        /*
         s := x.StickerApi(&x.Sticker{
           File: byte,
           Tipe: func() x.MediaType {
@@ -175,7 +175,7 @@ func init() {
         })
 
         sock.SendSticker(m.From, s.Build(), *m)
-        /*
+        */
 				err := os.WriteFile(conjp, byte, 0644)
 				if err != nil {
 					fmt.Println("Failed saved jpg")
@@ -185,7 +185,7 @@ func init() {
 				sock.StickerPath(m.From, conwp, *m)
 				os.Remove(conwp)
 				os.Remove(conjp)
-        */
+        
 				m.React("✅")
 			}
 
