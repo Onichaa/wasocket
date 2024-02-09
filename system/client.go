@@ -459,7 +459,7 @@ func (client *Nc) FetchGroupAdmin(Jid types.JID) ([]string, error) {
 	return Admin, err
 }
 
-func (client *Nc) SendSticker(jid types.JID, data []byte, opts *waProto.ContextInfo) {
+func (client *Nc) SendSticker(jid types.JID, data []byte, m IMsg) {
 	uploaded, err := client.WA.Upload(context.Background(), data, waSocket.MediaImage)
 	if err != nil {
 		fmt.Printf("Failed to upload file: %v\n", err)
@@ -474,7 +474,12 @@ func (client *Nc) SendSticker(jid types.JID, data []byte, opts *waProto.ContextI
 			FileEncSha256: uploaded.FileEncSHA256,
 			FileSha256:    uploaded.FileSHA256,
 			FileLength:    proto.Uint64(uint64(len(data))),
-			ContextInfo:   opts,
+      ContextInfo: &waProto.ContextInfo{
+        StanzaId:      &m.ID,
+        Participant:   proto.String(m.Sender.String()),
+        QuotedMessage: m.Msg,
+        Expiration:    &m.Exp,
+        },
 		},
 	})
 }
