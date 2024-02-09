@@ -4,7 +4,7 @@ import "sync"
 
 var (
 	mu    sync.Mutex
-	Name  = "waSocket Bot"
+	Name  = "WaSocket Bot"
 	Login = "code"
 	Bot   = "6283873541589"
 	Owner = []string{"628388024064"}
