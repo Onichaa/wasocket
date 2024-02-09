@@ -4,7 +4,7 @@ import (
   "fmt"
   x "mywabot/system"
   "os"
-  "os/exec"
+ // "os/exec"
 )
 
 func init() {
@@ -41,6 +41,32 @@ func init() {
           return
         }
 
+        s := x.StickerApi(&x.Sticker{
+          File: bytes,
+          Tipe: func() x.MediaType {
+            if m.IsImage || m.IsQuotedImage || m.IsQuotedSticker {
+              return x.IMAGE
+            } else {
+              return x.VIDEO
+            }
+          }(),
+        }, &x.MetadataSticker{
+          Author:    m.PushName,
+          Pack:      "https://s.id/ryuubot",
+          KeepScale: true,
+          Removebg:  "true",
+          Circle: func() bool {
+            if m.Query == "-c" {
+              return true
+            } else {
+              return false
+            }
+          }(),
+        })
+
+        sock.SendSticker(m.From, s.Build(), *m)
+
+        /*
         conwp := "./tmp/" + m.ID + ".webp"
         err = os.WriteFile(conwp, bytes, 0644)
         if err != nil {
@@ -57,7 +83,8 @@ func init() {
         sock.StickerPath(m.From, conwp, *m)
 
         os.Remove(conwp)
-        os.Remove(conjp)
+        */
+        os.Remove(conjp)      
         m.React("✅")
       }
 
@@ -84,6 +111,32 @@ func init() {
           return
         }
 
+        s := x.StickerApi(&x.Sticker{
+          File: bytes,
+          Tipe: func() x.MediaType {
+            if m.IsImage || m.IsQuotedImage || m.IsQuotedSticker {
+              return x.IMAGE
+            } else {
+              return x.VIDEO
+            }
+          }(),
+        }, &x.MetadataSticker{
+          Author:    m.PushName,
+          Pack:      "https://s.id/ryuubot",
+          KeepScale: true,
+          Removebg:  "true",
+          Circle: func() bool {
+            if m.Query == "-c" {
+              return true
+            } else {
+              return false
+            }
+          }(),
+        })
+
+        sock.SendSticker(m.From, s.Build(), *m)
+        
+/*
         conjp := "./tmp/" + m.ID + ".jpg"
         conwp := "./tmp/" + m.ID + ".webp"
         err = os.WriteFile(conjp, bytes, 0644)
@@ -95,8 +148,8 @@ func init() {
         sock.StickerPath(m.From, conwp, *m)
         os.Remove(conwp)
         os.Remove(conjp)
+        */
         os.Remove(conjp1)
-        
         m.React("✅")
       }
 
@@ -123,6 +176,32 @@ func init() {
           return
         }
 
+        s := x.StickerApi(&x.Sticker{
+          File: bytes,
+          Tipe: func() x.MediaType {
+            if m.IsImage || m.IsQuotedImage || m.IsQuotedSticker {
+              return x.IMAGE
+            } else {
+              return x.VIDEO
+            }
+          }(),
+        }, &x.MetadataSticker{
+          Author:    m.PushName,
+          Pack:      "https://s.id/ryuubot",
+          KeepScale: true,
+          Removebg:  "true",
+          Circle: func() bool {
+            if m.Query == "-c" {
+              return true
+            } else {
+              return false
+            }
+          }(),
+        })
+
+        sock.SendSticker(m.From, s.Build(), *m)
+
+        /*
         conjp := "./tmp/" + m.ID + ".jpg"
         conwp := "./tmp/" + m.ID + ".webp"
         err = os.WriteFile(conjp, bytes, 0644)
@@ -134,6 +213,7 @@ func init() {
         sock.StickerPath(m.From, conwp, *m)
         os.Remove(conwp)
         os.Remove(conjp)
+        */
         os.Remove(conjp1)
 
         m.React("✅")

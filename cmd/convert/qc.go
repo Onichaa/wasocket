@@ -1,12 +1,10 @@
 package cmd
 
 import (
-  "fmt"
   x "mywabot/system"
-  "os"
- // "os/exec"
-  
 
+ // "fmt"
+ // "os"
     "math/rand"
     "github.com/disintegration/imaging"
     "github.com/fogleman/gg"
@@ -112,6 +110,34 @@ func init() {
       }
       dc.DrawImage(img, 0, 0)
 
+      s := x.StickerApi(&x.Sticker{
+        File: buffer,
+        Tipe: func() x.MediaType {
+        if m.IsImage || m.IsQuotedImage || m.IsQuotedSticker {
+          return x.IMAGE
+        } else if m.IsVideo || m.IsQuotedVideo {
+          return x.VIDEO
+        } else {
+          return x.TEKS
+        }
+        }(),
+      }, &x.MetadataSticker{
+        Author:    m.PushName,
+        Pack:      "https://s.id/ryuubot",
+        KeepScale: true,
+        Removebg:  "true",
+        Circle: func() bool {
+          if m.Query == "-c" {
+            return true
+          } else {
+            return false
+          }
+        }(),
+      })
+
+      sock.SendSticker(m.From, s.Build(), *m)
+      
+      /*
       conjp := "./tmp/" + m.ID + ".jpg"
       conwp := "./tmp/" + m.ID + ".webp"
       err = os.WriteFile(conjp, buffer, 0644)
@@ -122,7 +148,8 @@ func init() {
       x.ImgToWebp(conjp, conwp)
       sock.StickerPath(m.From, conwp, *m)
       os.Remove(conwp)
-      os.Remove(conjp)
+      os.Remove(conjp
+      */
 
         m.React("✅")
     },
