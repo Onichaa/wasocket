@@ -12,7 +12,7 @@ import (
 
 func init() {
 	x.NewCmd(&x.ICmd{
-		Name:   "ai",
+		Name:   "(ai|openai)",
 		Cmd:    []string{"ai"},
 		Tags:   "ai",
 		IsQuery:  true,
